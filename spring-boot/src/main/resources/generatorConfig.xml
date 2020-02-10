@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--加载配置文件，为下面读取数据库信息准备-->
+    <properties resource="application.properties"/>
+
+    <context id="default">
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <!--其中tk.mybatis.mapper.generator.MapperPlugin很重要，用来指定通用Mapper对应的文件，这样我们生成的mapper都会继承这个通用Mapper-->
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper" />
+            <property name="mappers" value="tk.mybatis.mapper.common.MySqlMapper" />
+            <!--caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true-->
+            <property name="caseSensitive" value="false"/>
+        </plugin>
+
+        <!-- 阻止生成自动注释 -->
+        <commentGenerator>
+            <property name="javaFileEncoding" value="UTF-8"/>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库链接地址账号密码，这里由于我使用的是根据开发和生产分离的配置文件，所以这里直接写上了-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+		<!-- 该属性可以控制是否强制DECIMAL和NUMERIC类型的字段转换为Java类型 -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--生成Model类存放位置-->
+        <javaModelGenerator targetPackage="com.iStudy.springboot.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <!-- 是否在当前路径下新加一层schema,ex：false路径com.qikegu.demo.model， com.qikegu.demo.model.[schemaName] -->  
+            <property name="enableSubPackages" value="false" />
+            <!-- 是否针对string类型的字段在set的时候进行trim调用 -->  
+            <property name="trimStrings" value="true"/> 
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.iStudy.springboot.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        
+        <!-- 配置表信息 --> 
+        <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample, 是否生成 example类   -->  
+        <!-- 不同的表，修改tableName和domainObjectName就可以 -->
+        <table tableName="m_role" domainObjectName="Role"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+    </context>
+
+</generatorConfiguration>
