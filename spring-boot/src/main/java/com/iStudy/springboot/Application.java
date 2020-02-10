@@ -1,5 +1,7 @@
 package com.iStudy.springboot;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import tk.mybatis.spring.annotation.MapperScan;
 
 import org.springframework.boot.SpringApplication;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableCaching
 @EnableAsync
+@EnableAutoConfiguration(exclude={JpaRepositoriesAutoConfiguration.class})
 //指定要扫描的mybatis映射类的路径
 @MapperScan(basePackages = "com.iStudy.springboot.mapper")
 public class Application {
