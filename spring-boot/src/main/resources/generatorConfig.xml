@@ -55,10 +55,13 @@
         <!-- 配置表信息 --> 
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample, 是否生成 example类   -->  
         <!-- 不同的表，修改tableName和domainObjectName就可以 -->
-        <table tableName="m_role" domainObjectName="Role"
+        <!--<table tableName="m_role" domainObjectName="Role"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
+        </table>-->
+        <table tableName="%">
+            <generatorKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
     </context>
 
