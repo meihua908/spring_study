@@ -57,6 +57,7 @@ public class ShiroConfig {
         map.put("/logout", "logout");
         map.put("/user/**", "anon");
         map.put("/order/**", "anon");
+        map.put("/rabbitmq/**", "anon");
         //对所有用户认证
         map.put("/**", "authc");
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->

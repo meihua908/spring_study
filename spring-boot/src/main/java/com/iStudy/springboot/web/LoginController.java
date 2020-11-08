@@ -20,6 +20,10 @@ import com.iStudy.springboot.model.User;
 import com.iStudy.springboot.service.LoginService;
 import com.iStudy.springboot.util.ResultUtil;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * @author Administrator
  *
@@ -31,6 +35,12 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
+
+	@ApiOperation(value="用户登录", notes="根据用户名，密码来做shiro权限认证")
+	/*@ApiImplicitParams({
+		@ApiImplicitParam(name = "name", value = "用户名", required = true, dataType = "String", paramType = "path"),
+		@ApiImplicitParam(name = "pwd", value = "密码", required = true, dataType = "String", paramType = "path")
+	})*/
 	@RequestMapping("/login")
     public Map<String, Object> login(User user) {
         //添加用户认证信息
@@ -38,7 +48,6 @@ public class LoginController {
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(user.getName(),user.getPwd());
       //进行验证，这里可以捕获异常，然后返回对应信息
         subject.login(usernamePasswordToken);
-
         String name = usernamePasswordToken.getUsername();
         user = loginService.getUserByName(name);
 		// subject.checkRole("admin");
